@@ -1,0 +1,10 @@
+Uptime: §UP§
+	di
+da           1		§U
+di
+§H§da
+
+§CPU§
+
+					USER: §U§
+		CPU:§H§
