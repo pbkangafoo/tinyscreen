@@ -8,13 +8,13 @@ tinyscreen is a lightweight clone of screenfetch written in python for displayin
 
 In the current version, tinyscreen is able to display following information using replacements in the theme file:
 
-.*username - §U§
-.*hostname - §H§
-.*uptime - §UP§
-.*cpu - §CPU§
-.*system release - §R§
-.*machine - §M§
-.*distribution - §D§
+* username - §U§
+* hostname - §H§
+* uptime - §UP§
+* cpu - §CPU§
+* system release - §R§
+* machine - §M§
+* distribution - §D§
 
 ## How to install tinyscreen?
 
