@@ -18,7 +18,9 @@ In the current version, tinyscreen is able to display following information usin
 
 ## How to install tinyscreen?
 
-In order to use tinyscreen, you don't need special rights, user rights are enough. Just place the tinyscreen.py in your home directory and put the theme file - like the test.txt - in the same directory. Edit .bashrc and add at the bottom "python tinyscreen.py -i test.txt" to make it start, once you launch the console.
+In order to use tinyscreen, you don't need special rights, user rights are enough. 
+Just place the tinyscreen.py in your home directory and put the theme file - like the test.txt - in the same directory. 
+Edit ".bashrc" and add at the bottom "python tinyscreen.py -i test.txt" to make it start, once you launch the console.
 
 ## Screenshot
 
