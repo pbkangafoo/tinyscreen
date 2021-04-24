@@ -31,138 +31,142 @@ from datetime import timedelta
 global mylist
 
 
+def print_infoheader():
+	""" prints the info screen
+
+	print_infoheader() -> no return
+
+	"""
+	print(" _______.__               _______.")
+	print("|_     _|__|.-----.--.--.|     __|.----.----.-----.-----.-----.")
+	print("  |   | |  ||     |  |  ||__     ||  __|   _|  -__|  -__|     |")
+	print("  |___| |__||__|__|___  ||_______||____|__| |_____|_____|__|__|")
+	print("                  |_____| © P.Bartels - https://www.kangafoo.de\n")
+
 def get_username():
-    """ returns the current username
+	""" returns the current username
 
-    get_username() -> return string
+	get_username() -> return string
 
-    """
-    return pwd.getpwuid(os.getuid())[0]
+	"""
+	return pwd.getpwuid(os.getuid())[0]
 
 
 def get_hostname():
-    """ Returns the name of the machine
+	""" Returns the name of the machine
 
-    get_hostname() -> return string
+	get_hostname() -> return string
 
-    """
-    return os.uname()[1]
+	"""
+	return os.uname()[1]
 
 
 def get_release():
-    """ Returns the kernel version aka release
+	""" Returns the kernel version aka release
 
-    get_release() -> return string
+	get_release() -> return string
 
-    """
-    return os.uname()[2]
+	"""
+	return os.uname()[2]
 
 
 def get_machine():
-    """ returns type of machine
+	""" returns type of machine
 
-    get_machine() -> return string
+	get_machine() -> return string
 
-    """
-    return os.uname()[4]
+	"""
+	return os.uname()[4]
 
 
 def get_distribution():
-    """ Returns the linux distribution + version
+	""" Returns the linux distribution + version
 
-    get_distribution -> return string
+	get_distribution -> return string
 
-    """
-    s = platform.linux_distribution()[0] + ' ' + platform.linux_distribution()[1]
-    return s
+	"""
+	s = platform.system_alias()[0] + ' ' + platform.system_alias()[1]
+	return s
 
 
 def get_uptime():
-    """
+	"""
 
-    get_uptime() -> return string
+	get_uptime() -> return string
 
-    based on planzero.org/blog/2012/01/26/system_uptime_in_python,_a_better_way
-    """
-    with open('/proc/uptime', 'r') as f:
-        uptime_seconds = float(f.readline().split()[0])
-        uptime_string = str(timedelta(seconds=uptime_seconds))
-    return uptime_string
+	based on planzero.org/blog/2012/01/26/system_uptime_in_python,_a_better_way
+	"""
+	with open('/proc/uptime', 'r') as f:
+		uptime_seconds = float(f.readline().split()[0])
+		uptime_string = str(timedelta(seconds=uptime_seconds))
+	return uptime_string
 
 
 def get_cpuname():
-    """ returns the cpu name by catching it from /proc/cpuinfo
+	""" returns the cpu name by catching it from /proc/cpuinfo
 
-    get_cpuname() -> return string
+	get_cpuname() -> return string
 
-    """
-    with open('/proc/cpuinfo', 'r') as f:
-        for line in f:
-            if 'model name' in line:
-                cpuname = line.split(':')[1].strip()
-                cpuname = cpuname.replace('  ', '')
-                break
-    return cpuname
+	"""
+	with open('/proc/cpuinfo', 'r') as f:
+		for line in f:
+			if 'model name' in line:
+				cpuname = line.split(':')[1].strip()
+				cpuname = cpuname.replace('  ', '')
+				break
+	return cpuname
 
 
 def replace_all(text, dic):
-    """ replaces multiple strings based on a dictionary
+	""" replaces multiple strings based on a dictionary
 
-    replace_all(string,dictionary) -> string
+	replace_all(string,dictionary) -> string
 
-    """
-    for i, j in dic.iteritems():
-        text = text.replace(i, j)
-    return text
-
-
-def replacestring(inputstring):
-    """ Replaces place holders and returns the string
-
-    replacestring(string) -> return string
-
-    """
-    s = inputstring.replace("§U", get_username())
-    return s
+	"""
+	for i, j in dic.items():
+		text = text.replace(i, str(j))
+	return text
 
 
 def process(lines):
-    """ Open the given file and process each line before output
+	""" Open the given file and process each line before output
 
-    process(string) -> no return
+	process(string) -> no return
 
-    """
-    for line in lines:
-        line = line.replace("\n", "")
-        line = line.replace("\r", "")
-        newline = replace_all(line, mylist)
-        print(newline)
+	"""
+	for line in lines:
+		line = line.replace("\n", "")
+		line = line.replace("\r", "")
+		newline = replace_all(line, mylist)
+		print(newline)
 
 
 def create_list():
-    """ Creates dictionary with keywords and functions including values
+	""" Creates dictionary with keywords and functions including values
 
-    create_list() -> dictionary
+	create_list() -> dictionary
 
-    """
-    return {"§U§": get_username(),
-            "§H§": get_hostname(),
-            "§UP§": get_uptime(),
-            "§CPU§": get_cpuname(),
-            "§R§": get_release(),
-            "§M§": get_machine(),
-            "§D§": get_distribution}
+	"""
+	return {"§U§": get_username(),
+		"§H§": get_hostname(),
+		"§UP§": get_uptime(),
+		"§CPU§": get_cpuname(),
+		"§R§": get_release(),
+		"§M§": get_machine(),
+		"§D§": get_distribution}
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser("usage: %prog [options] arg1 arg2")
-    parser.add_argument("-i", "--input", dest="ifile",
+	parser = argparse.ArgumentParser("usage: %prog [options] arg1 arg2")
+	parser.add_argument("-i", "--input", dest="ifile",
                         help="specify the artwork file for output")
-    options = parser.parse_args()
-    if len(sys.argv) < 2:
-        print("help")
-        quit()
-    else:
-        mylist = create_list()
-        lines = open(options.ifile, "r").readlines()
-        process(lines)
+	options = parser.parse_args()
+	if len(sys.argv) < 2:
+		print_infoheader()
+		parser.print_help()
+		quit()
+	else:
+		mylist = create_list()
+		lines = open(options.ifile, "r").readlines()
+		process(lines)
+
