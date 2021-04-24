@@ -85,7 +85,7 @@ def get_distribution():
 	get_distribution -> return string
 
 	"""
-	s = platform.system_alias()[0] + ' ' + platform.system_alias()[1]
+	s = platform.system() + ' ' + platform.version()
 	return s
 
 
@@ -153,7 +153,7 @@ def create_list():
 		"§CPU§": get_cpuname(),
 		"§R§": get_release(),
 		"§M§": get_machine(),
-		"§D§": get_distribution}
+		"§D§": get_distribution()}
 
 
 if __name__ == "__main__":

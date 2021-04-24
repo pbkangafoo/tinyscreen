@@ -10,4 +10,4 @@ Uptime: §UP§
 CPU Name: §CPU§
 Release: §R§
 Machine: §M§
-
+Distribution: §D§
